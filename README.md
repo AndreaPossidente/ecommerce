@@ -2,7 +2,13 @@
 
 ## Getting Started
 
-First, run the development server:
+Add a .env file with the following environment variables
+
+```
+DATABASE_URL=<database_connection_uri>
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
