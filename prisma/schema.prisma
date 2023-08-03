@@ -9,3 +9,53 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+// User
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  password String
+  name     String
+  lastname String
+
+  role   Role?   @relation(fields: [roleId], references: [id])
+  roleId String? @db.ObjectId
+
+  addressIds String[]  @db.ObjectId
+  addresses  Address[] @relation(fields: [addressIds], references: [id])
+
+  @@map("users")
+}
+
+// Role
+model Role {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  role String
+  User User[]
+
+  @@map("roles")
+}
+
+// Permission
+
+// Address
+model Address {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  alias    String @unique
+  address1 String
+  address2 String
+  city     String
+  state    String
+  postcode String
+  phone    String
+
+  userIds String[] @db.ObjectId
+  users   User[]   @relation(fields: [userIds], references: [id])
+
+  @@map("addresses")
+}
+
+// Product
+// Category
+
+// Order
